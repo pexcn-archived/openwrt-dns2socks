@@ -1,0 +1,41 @@
+From 82ef42e05e15f660c4b92cb250d851a1598ba7ba Mon Sep 17 00:00:00 2001
+From: pexcn <i@pexcn.me>
+Date: Wed, 8 Apr 2020 15:41:42 +0800
+Subject: [PATCH] add makefile
+
+---
+ DNS2SOCKS/Makefile | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+ create mode 100644 DNS2SOCKS/Makefile
+
+diff --git a/DNS2SOCKS/Makefile b/DNS2SOCKS/Makefile
+new file mode 100644
+index 0000000..31e148e
+--- /dev/null
++++ b/DNS2SOCKS/Makefile
+@@ -0,0 +1,22 @@
++CC = gcc
++CFLAGS = -pthread -Wall -O3 -Wl,--build-id=none
++SRC = DNS2SOCKS.c
++MAIN = dns2socks
++DESTDIR = /usr/local/bin
++
++.PHONY: all install uninstall clean
++
++all: $(MAIN)
++
++$(MAIN):
++	$(CC) $(CFLAGS) -s -o $(MAIN) $(SRC)
++
++install: $(MAIN)
++	install -d $(DESTDIR)
++	install -m 0755 $(MAIN) $(DESTDIR)
++
++uninstall:
++	$(RM) $(DESTDIR)/$(MAIN)
++
++clean:
++	$(RM) $(MAIN)
+-- 
+2.25.1
+
