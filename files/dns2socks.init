@@ -84,6 +84,8 @@ start_dns2socks() {
 	[ "$(get_value $1 force_edns 0)" = 1 ] && edns_mode="-ef" || edns_mode="-e"
 	append_param_with_separator $1 edns_client_subnet "$edns_mode" ":"
 
+	procd_append_param command "-q"
+
 	procd_close_instance
 }
 
