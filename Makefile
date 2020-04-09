@@ -32,11 +32,19 @@ define Package/dns2socks/description
 This is a command line utility to resolve DNS requests via a SOCKS tunnel like Tor or a HTTP proxy.
 endef
 
+define Package/dns2socks/conffiles
+/etc/config/dns2socks
+endef
+
 MAKE_PATH := DNS2SOCKS
 
 define Package/dns2socks/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/DNS2SOCKS/dns2socks $(1)/usr/bin
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) files/dns2socks.init $(1)/etc/init.d/dns2socks
+	$(INSTALL_DIR) $(1)/etc/config
+	$(INSTALL_CONF) files/dns2socks.config $(1)/etc/config/dns2socks
 endef
 
 $(eval $(call BuildPackage,dns2socks))
